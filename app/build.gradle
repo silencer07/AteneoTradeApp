@@ -1,7 +1,10 @@
 def AAVersion = '4.3.1'
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'realm-android'
+apply plugin: "kotlin-allopen"
+apply plugin: "kotlin-kapt"
 
 
 android {
@@ -25,14 +28,19 @@ android {
     }
 }
 
+allOpen {
+    annotation("org.androidannotations.api.KotlinOpen")
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile "org.androidannotations:androidannotations-api:$AAVersion"
-    annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
+    kapt "org.androidannotations:androidannotations:$AAVersion"
+    implementation "org.androidannotations:androidannotations-api:$AAVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     compile "io.realm:realm-android-library:$project.realmVersion"
 
@@ -42,4 +50,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
