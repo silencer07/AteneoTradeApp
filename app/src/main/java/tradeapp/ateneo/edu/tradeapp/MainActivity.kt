@@ -63,6 +63,7 @@ open class MainActivity : AppCompatActivity() {
     @AfterViews
     fun setToolbar(){
         setSupportActionBar(toolbar);
+        super.getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
