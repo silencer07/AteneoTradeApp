@@ -26,6 +26,6 @@ open class User : RealmObject() {
     var degree: String? = null
 
 
-    var photo: Array<Byte> = arrayOf()
+    var photo: ByteArray? = null
 
 }

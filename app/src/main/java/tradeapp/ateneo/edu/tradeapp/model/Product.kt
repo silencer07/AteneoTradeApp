@@ -1,5 +1,6 @@
 package tradeapp.ateneo.edu.tradeapp.model
 
+import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.Required
@@ -13,18 +14,19 @@ import java.util.*
 open class Product : RealmObject() {
 
     @PrimaryKey
-    var uuid: UUID = UUID.randomUUID()
+    var uuid: String = UUID.randomUUID().toString()
 
-    @Required
     var user: User? = null
 
-    @Required
-    var price: BigDecimal = BigDecimal.ZERO
+    var category: Category? = null
 
-    val dateCreated = Date()
+    var price = 0f
+
+    var dateCreated = Date()
 
     var sold: Boolean = false
 
     var reservedTo: User? = null
 
+    var photos: RealmList<ByteArray> = RealmList<ByteArray>();
 }

@@ -17,20 +17,17 @@ open class Feedback(): RealmObject() {
     }
 
     @PrimaryKey
-    var uuid: UUID = UUID.randomUUID()
+    var uuid: String = UUID.randomUUID().toString()
 
-    @Required
     var from: User? = null
 
-    @Required
     var to: User? = null
 
     @Required
     var text: String = StringUtils.EMPTY
 
-    @Required
-    var rating: Int = Feedback.MAX_RATING
+    var rating = Feedback.MAX_RATING
 
-    val dateCreated = Date()
+    var dateCreated = Date()
     
 }

@@ -66,7 +66,7 @@ open class MainActivity : AppCompatActivity() {
 
     @AfterViews
     fun setText() {
-        navigation!!.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
     @AfterViews

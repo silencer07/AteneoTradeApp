@@ -13,16 +13,13 @@ import java.util.*
 open class ProductComment(): RealmObject() {
 
     @PrimaryKey
-    var uuid: UUID = UUID.randomUUID()
+    var uuid: String = UUID.randomUUID().toString()
 
-    @Required
     var user: User? = null
 
-    @Required
     var product: Product? = null
 
-    @Required
     var text: String = StringUtils.EMPTY
 
-    val dateCreated = Date()
+    var dateCreated = Date()
 }

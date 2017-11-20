@@ -13,17 +13,15 @@ import java.util.*
 open class UserMessage(): RealmObject() {
 
     @PrimaryKey
-    var uuid: UUID = UUID.randomUUID()
+    var uuid: String = UUID.randomUUID().toString()
 
-    @Required
     var from: User? = null
 
-    @Required
     var to: User? = null
 
     @Required
     var text: String = StringUtils.EMPTY
 
-    val dateCreated = Date()
+    var dateCreated = Date()
 
 }

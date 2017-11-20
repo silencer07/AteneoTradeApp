@@ -5,6 +5,10 @@ import android.app.Application
 import org.androidannotations.annotations.EApplication
 
 import io.realm.Realm
+import org.androidannotations.annotations.AfterInject
+import org.androidannotations.annotations.AfterViews
+import org.androidannotations.annotations.Bean
+import tradeapp.ateneo.edu.tradeapp.init.SampleDataInit
 import tradeapp.ateneo.edu.tradeapp.model.Category
 
 /**
@@ -19,6 +23,9 @@ open class TradeApp : Application() {
 
         Realm.init(this)
         initCategories()
+
+        val initializer = SampleDataInit(baseContext);
+        initializer.init()
     }
 
     fun initCategories() {
@@ -53,7 +60,7 @@ open class TradeApp : Application() {
             others.photo = others.name
             realm.copyToRealmOrUpdate(others)
         }
-
     }
+
 }
 
