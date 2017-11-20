@@ -60,7 +60,7 @@ open class MainActivity : AppCompatActivity() {
         false
     }
 
-    override protected fun attachBaseContext(newBase: Context) {
+    override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(IconicsContextWrapper.wrap(newBase))
     }
 

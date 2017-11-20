@@ -22,9 +22,7 @@ open class TradeApp : Application() {
     }
 
     fun initCategories() {
-        val realm = Realm.getDefaultInstance()
-
-        realm.executeTransaction { realm: Realm ->
+        Realm.getDefaultInstance().executeTransaction { realm: Realm ->
             val apparels = Category()
             apparels.name = "apparels"
             apparels.photo = apparels.name
