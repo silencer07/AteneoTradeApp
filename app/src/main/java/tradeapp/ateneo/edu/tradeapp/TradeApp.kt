@@ -24,24 +24,36 @@ open class TradeApp : Application() {
     fun initCategories() {
         val realm = Realm.getDefaultInstance()
 
-        realm.executeTransaction {
-            val apparels = realm.createObject(Category::class.java, "apparels")
-            apparels.photo = apparels.name + ".jpg"
+        realm.executeTransaction { realm: Realm ->
+            val apparels = Category()
+            apparels.name = "apparels"
+            apparels.photo = apparels.name
+            realm.copyToRealmOrUpdate(apparels)
 
-            val books = realm.createObject(Category::class.java, "books")
-            books.photo = books.name + ".jpg"
+            val books = Category()
+            books.name = "books"
+            books.photo = books.name
+            realm.copyToRealmOrUpdate(books)
 
-            val electronics = realm.createObject(Category::class.java, "electronics")
-            electronics.photo = electronics.name + ".jpg"
+            val electronics = Category()
+            electronics.name = "electronics"
+            electronics.photo = electronics.name
+            realm.copyToRealmOrUpdate(electronics)
 
-            val pets = realm.createObject(Category::class.java, "pets")
-            pets.photo = pets.name + ".jpg"
+            val pets = Category()
+            pets.name = "pets"
+            pets.photo = pets.name
+            realm.copyToRealmOrUpdate(pets)
 
-            val tickets = realm.createObject(Category::class.java, "tickets")
-            tickets.photo = tickets.name + ".jpg"
+            val tickets = Category()
+            tickets.name = "tickets"
+            tickets.photo = tickets.name
+            realm.copyToRealmOrUpdate(tickets)
 
-            val others = realm.createObject(Category::class.java, "others")
-            others.photo = others.name + ".png"
+            val others = Category()
+            others.name = "others"
+            others.photo = others.name
+            realm.copyToRealmOrUpdate(others)
         }
 
     }

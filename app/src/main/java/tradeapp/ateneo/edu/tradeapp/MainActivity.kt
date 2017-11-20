@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ListView
 import android.widget.TextView
 import com.mikepenz.iconics.context.IconicsLayoutInflater
 import org.androidannotations.annotations.AfterViews
@@ -18,14 +19,15 @@ import android.widget.Toast
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.context.IconicsContextWrapper
+import io.realm.Realm
+import io.realm.RealmResults
 import org.androidannotations.annotations.OptionsItem
+import tradeapp.ateneo.edu.tradeapp.adapters.CategoryListAdapter
+import tradeapp.ateneo.edu.tradeapp.model.Category
 
 
 @EActivity(R.layout.activity_main)
 open class MainActivity : AppCompatActivity() {
-
-    @ViewById(R.id.message)
-    protected lateinit var mTextMessage: TextView;
 
     @ViewById(R.id.navigation)
     protected lateinit var navigation: BottomNavigationView;
@@ -33,18 +35,21 @@ open class MainActivity : AppCompatActivity() {
     @ViewById(R.id.toolbar)
     protected lateinit var toolbar: Toolbar;
 
+    @ViewById(R.id.categoryListView)
+    protected lateinit var categoryListView: ListView
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
-                mTextMessage!!.setText(R.string.title_home)
+            R.id.navigation_dashboard -> {
+                //mTextMessage!!.setText(R.string.title_dashboard)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                mTextMessage!!.setText(R.string.title_dashboard)
+            R.id.navigation_home -> {
+                //mTextMessage!!.setText(R.string.title_home)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                mTextMessage!!.setText(R.string.title_notifications)
+                //mTextMessage!!.setText(R.string.title_notifications)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -61,9 +66,15 @@ open class MainActivity : AppCompatActivity() {
     }
 
     @AfterViews
-    fun setToolbar(){
-        setSupportActionBar(toolbar);
-        super.getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
+    fun setHomeAsMainPage(){
+        navigation.menu.getItem(1).setChecked(true)
+    }
+
+    @AfterViews
+    fun showCategories(){
+        val realm = Realm.getDefaultInstance()
+        val categories: RealmResults<Category> = realm.where(Category::class.java).findAll()
+        categoryListView.adapter = CategoryListAdapter(baseContext, categories)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -76,6 +87,12 @@ open class MainActivity : AppCompatActivity() {
                         .color(ContextCompat.getColor(this, R.color.colorAccent))
         )
         return true
+    }
+
+    @AfterViews
+    fun setToolbar(){
+        setSupportActionBar(toolbar);
+        super.getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
     }
 
     @OptionsItem(R.id.action_favorite)
