@@ -11,10 +11,11 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/categoryButton"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:background="#0000"
             android:scaleType="fitXY"
             app:srcCompat="@color/colorPrimary" />
 

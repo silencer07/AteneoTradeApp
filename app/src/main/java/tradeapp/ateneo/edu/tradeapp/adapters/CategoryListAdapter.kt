@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.ListAdapter
 import android.widget.TextView
 import io.realm.OrderedRealmCollection
@@ -21,7 +21,7 @@ class CategoryListAdapter(context: Context, categories: OrderedRealmCollection<C
         , ListAdapter {
 
     private class ViewHolder {
-        internal var categoryButton: ImageView? = null
+        internal var categoryButton: ImageButton? = null
         internal var categoryName: TextView? = null
     }
 
@@ -33,7 +33,7 @@ class CategoryListAdapter(context: Context, categories: OrderedRealmCollection<C
             convertView = LayoutInflater.from(parent!!.context)
                     .inflate(R.layout.category_card, parent, false)
             viewHolder = ViewHolder()
-            viewHolder.categoryButton = convertView.findViewById(R.id.categoryButton) as ImageView
+            viewHolder.categoryButton = convertView.findViewById(R.id.categoryButton) as ImageButton
             viewHolder.categoryName = convertView.findViewById(R.id.categoryName) as TextView
             convertView.setTag(viewHolder)
         } else {
