@@ -1,6 +1,7 @@
 package tradeapp.ateneo.edu.tradeapp
 
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.content.ContextCompat
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.GridView
 import android.widget.ListView
 import android.widget.TextView
 import com.mikepenz.iconics.context.IconicsLayoutInflater
@@ -21,6 +23,8 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.context.IconicsContextWrapper
 import io.realm.Realm
 import io.realm.RealmResults
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import org.androidannotations.annotations.OptionsItem
 import tradeapp.ateneo.edu.tradeapp.adapters.CategoryListAdapter
 import tradeapp.ateneo.edu.tradeapp.model.Category
@@ -36,7 +40,7 @@ open class MainActivity : AppCompatActivity() {
     protected lateinit var toolbar: Toolbar;
 
     @ViewById(R.id.categoryListView)
-    protected lateinit var categoryListView: ListView
+    protected lateinit var categoryListView: GridView
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -72,9 +76,11 @@ open class MainActivity : AppCompatActivity() {
 
     @AfterViews
     fun showCategories(){
-        val realm = Realm.getDefaultInstance()
-        val categories: RealmResults<Category> = realm.where(Category::class.java).findAll()
-        categoryListView.adapter = CategoryListAdapter(baseContext, categories)
+        async(UI) {
+            val realm = Realm.getDefaultInstance()
+            val categories: RealmResults<Category> = realm.where(Category::class.java).findAll()
+            categoryListView.adapter = CategoryListAdapter(baseContext, categories)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

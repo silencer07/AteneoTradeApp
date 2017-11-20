@@ -1,15 +1,15 @@
 package tradeapp.ateneo.edu.tradeapp.adapters
 
 import android.content.Context
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.ListAdapter
 import android.widget.TextView
 import io.realm.OrderedRealmCollection
 import io.realm.RealmBaseAdapter
+import org.apache.commons.lang3.StringUtils
 import tradeapp.ateneo.edu.tradeapp.R
 import tradeapp.ateneo.edu.tradeapp.model.Category
 
@@ -21,7 +21,7 @@ class CategoryListAdapter(context: Context, categories: OrderedRealmCollection<C
         , ListAdapter {
 
     private class ViewHolder {
-        internal var categoryButton: ImageButton? = null
+        internal var categoryButton: ImageView? = null
         internal var categoryName: TextView? = null
     }
 
@@ -33,7 +33,7 @@ class CategoryListAdapter(context: Context, categories: OrderedRealmCollection<C
             convertView = LayoutInflater.from(parent!!.context)
                     .inflate(R.layout.category_card, parent, false)
             viewHolder = ViewHolder()
-            viewHolder.categoryButton = convertView.findViewById(R.id.categoryButton) as ImageButton
+            viewHolder.categoryButton = convertView.findViewById(R.id.categoryButton) as ImageView
             viewHolder.categoryName = convertView.findViewById(R.id.categoryName) as TextView
             convertView.setTag(viewHolder)
         } else {
@@ -47,7 +47,7 @@ class CategoryListAdapter(context: Context, categories: OrderedRealmCollection<C
             val image = resources.getDrawable(resources.getIdentifier(category.photo, "drawable", packageName), null)
             viewHolder.categoryButton!!.setImageDrawable(image)
             viewHolder.categoryButton!!.contentDescription = category.name
-            viewHolder.categoryName!!.text = category.name
+            viewHolder.categoryName!!.text = StringUtils.capitalize(category.name)
 
             /*
             if (inDeletionMode) {

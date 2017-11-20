@@ -22,10 +22,11 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             />
 
-        <ListView
+        <GridView
             android:id="@+id/categoryListView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:numColumns="2"/>
 
     </LinearLayout>
     <android.support.design.widget.BottomNavigationView
