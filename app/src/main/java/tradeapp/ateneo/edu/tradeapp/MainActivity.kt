@@ -14,9 +14,6 @@ import android.widget.GridView
 import android.widget.ListView
 import android.widget.TextView
 import com.mikepenz.iconics.context.IconicsLayoutInflater
-import org.androidannotations.annotations.AfterViews
-import org.androidannotations.annotations.EActivity
-import org.androidannotations.annotations.ViewById
 import android.widget.Toast
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.mikepenz.iconics.IconicsDrawable
@@ -25,7 +22,7 @@ import io.realm.Realm
 import io.realm.RealmResults
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
-import org.androidannotations.annotations.OptionsItem
+import org.androidannotations.annotations.*
 import tradeapp.ateneo.edu.tradeapp.adapters.CategoryListAdapter
 import tradeapp.ateneo.edu.tradeapp.model.Category
 
@@ -75,7 +72,8 @@ open class MainActivity : AppCompatActivity() {
     }
 
     @AfterViews
-    fun showCategories(){
+    @Background
+    open fun showCategories(){
         async(UI) {
             val realm = Realm.getDefaultInstance()
             val categories: RealmResults<Category> = realm.where(Category::class.java).findAll()

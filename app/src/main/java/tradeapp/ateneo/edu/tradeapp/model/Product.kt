@@ -4,6 +4,7 @@ import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.Required
+import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
 import java.util.*
 
@@ -20,6 +21,8 @@ open class Product : RealmObject() {
 
     var category: Category? = null
 
+    var title: String = StringUtils.EMPTY
+
     var price = 0f
 
     var dateCreated = Date()
@@ -29,4 +32,6 @@ open class Product : RealmObject() {
     var reservedTo: User? = null
 
     var photos: RealmList<ByteArray> = RealmList<ByteArray>();
+
+    var description: String = StringUtils.EMPTY
 }
