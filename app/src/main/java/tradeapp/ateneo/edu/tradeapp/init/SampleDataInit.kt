@@ -3,10 +3,7 @@ package tradeapp.ateneo.edu.tradeapp.init
 import android.content.Context
 import io.realm.Realm
 import org.apache.commons.io.IOUtils
-import tradeapp.ateneo.edu.tradeapp.model.Category
-import tradeapp.ateneo.edu.tradeapp.model.Product
-import tradeapp.ateneo.edu.tradeapp.model.ProductComment
-import tradeapp.ateneo.edu.tradeapp.model.User
+import tradeapp.ateneo.edu.tradeapp.model.*
 
 /**
  * Created by aldrin on 11/20/17.
@@ -21,6 +18,9 @@ open class SampleDataInit(val context: Context) {
     fun init(){
         initUsers()
         initSampleProducts()
+        initBookmarks()
+        initFeedbacks()
+        initMessage()
     }
 
     private fun initUsers(){
@@ -59,7 +59,6 @@ open class SampleDataInit(val context: Context) {
     }
 
     private fun initSampleProducts(){
-        val assets = context.assets
         val realm = Realm.getDefaultInstance();
 
         val animals = realm.where(Category::class.java).equalTo("name", "animals").findFirst()
@@ -136,6 +135,60 @@ open class SampleDataInit(val context: Context) {
                 productComment5.product = macbook
                 productComment5.text = "Reserve to me, I will be getting this one."
                 realm.copyToRealmOrUpdate(productComment5)
+            }
+        }
+    }
+
+    private fun initBookmarks(){
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            if (realm.where(Bookmark::class.java).count() == 0L) {
+                val bookmark1 = Bookmark()
+                bookmark1.user = aldrin
+                bookmark1.product = realm.where(Product::class.java).equalTo("title", "Macbook Pro 2017 touchbar").findFirst()
+                realm.copyToRealmOrUpdate(bookmark1)
+
+                val bookmark2 = Bookmark()
+                bookmark2.user = aldrin
+                bookmark2.product = realm.where(Product::class.java).equalTo("title", "iPhone X").findFirst()
+                realm.copyToRealmOrUpdate(bookmark1)
+            }
+        }
+    }
+
+    private fun initFeedbacks(){
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            if (realm.where(Bookmark::class.java).count() == 0L) {
+                val feedback1 = Feedback()
+                feedback1.from = aldrin
+                feedback1.to = nadine
+                feedback1.text = "Amazing seller."
+                feedback1.rating = 5
+                realm.copyToRealmOrUpdate(feedback1)
+
+                val feedback2 = Feedback()
+                feedback2.from = nadine
+                feedback2.to = aldrin
+                feedback2.text = "Amazing buyer."
+                feedback2.rating = 4
+                realm.copyToRealmOrUpdate(feedback2)
+            }
+        }
+    }
+
+    private fun initMessage(){
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            if (realm.where(Bookmark::class.java).count() == 0L) {
+                val userMessage1 = UserMessage()
+                userMessage1.from = aldrin
+                userMessage1.to = nadine
+                userMessage1.text = "Hi, what is the condition of the macbook"
+                realm.copyToRealmOrUpdate(userMessage1)
+
+                val userMessage2 = Feedback()
+                userMessage2.from = nadine
+                userMessage2.to = aldrin
+                userMessage2.text = "It is brand new from Singapore."
+                realm.copyToRealmOrUpdate(userMessage2)
             }
         }
     }
