@@ -61,7 +61,7 @@ open class SampleDataInit(val context: Context) {
     private fun initSampleProducts(){
         val realm = Realm.getDefaultInstance();
 
-        val animals = realm.where(Category::class.java).equalTo("name", "animals").findFirst()
+        val animals = realm.where(Category::class.java).equalTo("name", "pets").findFirst()
         val electronics = realm.where(Category::class.java).equalTo("name", "electronics").findFirst()
 
         val nadine = this.nadine
