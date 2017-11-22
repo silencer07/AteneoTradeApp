@@ -28,4 +28,7 @@ open class User : RealmObject() {
 
     var photo: ByteArray? = null
 
+    fun getDisplayName(): String{
+        return if(StringUtils.isNotBlank(name)) name else username
+    }
 }
