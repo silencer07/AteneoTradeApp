@@ -11,13 +11,14 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/categoryButton"
+        <ImageView
+            android:id="@+id/categoryView"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:background="#0000"
             android:scaleType="fitXY"
-            app:srcCompat="@color/colorPrimary" />
+            app:srcCompat="@color/colorPrimary"
+            />
 
         <TextView
             android:id="@+id/categoryName"

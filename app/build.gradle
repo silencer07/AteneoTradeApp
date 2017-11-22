@@ -1,10 +1,12 @@
-def AAVersion = '4.3.1'
-def supportLibVersion = '25.4.0'
-def anko_version = '0.10.2'
+def AAVersion = "4.3.1"
+def supportLibVersion = "25.4.0"
+def ankoVersion = "0.10.2"
+def autoValueVersion = "1.5"
+def paperParcelVersion = "2.0.4"
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'realm-android'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "realm-android"
 apply plugin: "kotlin-allopen"
 apply plugin: "kotlin-kapt"
 
@@ -12,7 +14,7 @@ apply plugin: "kotlin-kapt"
 android {
     compileSdkVersion 25
     configurations.all {
-        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+        resolutionStrategy.force "com.google.code.findbugs:jsr305:1.3.9"
     }
     defaultConfig {
         applicationId "tradeapp.ateneo.edu.tradeapp"
@@ -21,11 +23,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath false
+            }
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
 }
@@ -35,10 +43,10 @@ allOpen {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
+    implementation "com.android.support.constraint:constraint-layout:1.0.2"
+    compile fileTree(dir: "libs", include: ["*.jar"])
+    androidTestCompile("com.android.support.test.espresso:espresso-core:2.2.2", {
+        exclude group: "com.android.support", module: "support-annotations"
     })
 
     kapt "org.androidannotations:androidannotations:$AAVersion"
@@ -48,26 +56,33 @@ dependencies {
     //the core iconcis library (without any widgets)
     implementation "com.mikepenz:iconics-core:3.0.0@aar"
     implementation "com.android.support:appcompat-v7:${supportLibVersion}"
-    implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
-    implementation 'com.mikepenz:fontawesome-typeface:4.7.0.2@aar'
+    implementation "com.mikepenz:google-material-typeface:3.0.1.2.original@aar"
+    implementation "com.mikepenz:fontawesome-typeface:4.7.0.2@aar"
 
     compile "io.realm:realm-android-library:$project.realmVersion"
 
-    compile 'io.realm:android-adapters:2.1.0'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+    compile "io.realm:android-adapters:2.1.0"
+    compile group: "org.apache.commons", name: "commons-lang3", version: "3.6"
 
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
     implementation "com.android.support:cardview-v7:${supportLibVersion}"
-    testCompile 'junit:junit:4.12'
+    testCompile "junit:junit:4.12"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile "org.jetbrains.anko:anko-coroutines:$anko_version"
+    compile "org.jetbrains.anko:anko-coroutines:$ankoVersion"
 
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    provided "com.google.auto.value:auto-value:${autoValueVersion}"
+    kapt "com.google.auto.value:auto-value:${autoValueVersion}"
+
+    compile "nz.bradcampbell:paperparcel:${paperParcelVersion}"
+    compile "nz.bradcampbell:paperparcel-kotlin:${paperParcelVersion}" // Optional
+    kapt "nz.bradcampbell:paperparcel-compiler:${paperParcelVersion}"
+
+    compile group: "commons-io", name: "commons-io", version: "2.6"
 }
 repositories {
     mavenCentral()
     google()
 }
 
-apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-android-extensions"

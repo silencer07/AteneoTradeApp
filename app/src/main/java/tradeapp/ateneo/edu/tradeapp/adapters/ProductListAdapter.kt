@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.ListAdapter
 import android.widget.TextView
 import io.realm.OrderedRealmCollection
@@ -20,11 +20,11 @@ import java.text.SimpleDateFormat
  * Created by aldrin on 11/20/17.
  */
 
-class ProductListAdapter(context: Context, categories: OrderedRealmCollection<Product>): RealmBaseAdapter<Product>(categories)
+class ProductListAdapter(val context: Context, products: OrderedRealmCollection<Product>): RealmBaseAdapter<Product>(products)
         , ListAdapter {
 
     private class ViewHolder {
-        internal var productButton: ImageButton? = null
+        internal var productButton: ImageView? = null
         internal var productTitle: TextView? = null
         internal var productDetails: TextView? = null
     }
@@ -37,7 +37,7 @@ class ProductListAdapter(context: Context, categories: OrderedRealmCollection<Pr
             convertView = LayoutInflater.from(parent!!.context)
                     .inflate(R.layout.product_card, parent, false)
             viewHolder = ViewHolder()
-            viewHolder.productButton = convertView.findViewById(R.id.productButton) as ImageButton
+            viewHolder.productButton = convertView.findViewById(R.id.productView) as ImageView
             viewHolder.productTitle = convertView.findViewById(R.id.productTitle) as TextView
             viewHolder.productDetails = convertView.findViewById(R.id.productDetails) as TextView
             convertView.setTag(viewHolder)

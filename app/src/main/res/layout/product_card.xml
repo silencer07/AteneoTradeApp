@@ -11,8 +11,8 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/productButton"
+        <ImageView
+            android:id="@+id/productView"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:background="#0000"
