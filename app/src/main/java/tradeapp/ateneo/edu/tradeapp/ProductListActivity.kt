@@ -1,10 +1,9 @@
 package tradeapp.ateneo.edu.tradeapp
 
-import android.content.Context
 import io.realm.Realm
-import io.realm.RealmResults
 import io.realm.Sort
-import org.androidannotations.annotations.*
+import org.androidannotations.annotations.EActivity
+import org.androidannotations.annotations.UiThread
 import tradeapp.ateneo.edu.tradeapp.adapters.ProductListAdapter
 import tradeapp.ateneo.edu.tradeapp.model.Product
 

@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="productTitle"
+            android:textAlignment="center"
             android:textColor="@color/cardview_dark_background"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -32,7 +33,9 @@
             android:id="@+id/productDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="fill_horizontal"
             android:text="productDetails"
+            android:textAlignment="center"
             android:textColor="@color/cardview_dark_background"
             android:textSize="10sp"
             android:textStyle="bold" />

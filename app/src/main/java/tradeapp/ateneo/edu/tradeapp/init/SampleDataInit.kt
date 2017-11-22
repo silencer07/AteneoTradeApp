@@ -64,6 +64,9 @@ open class SampleDataInit(val context: Context) {
         val animals = realm.where(Category::class.java).equalTo("name", "animals").findFirst()
         val electronics = realm.where(Category::class.java).equalTo("name", "electronics").findFirst()
 
+        val nadine = this.nadine
+        val aldrin = this.aldrin
+        val unverifiedUser = this.unverifiedUser
         realm.executeTransaction { realm ->
             if(realm.where(Product::class.java).count() == 0L){
                 val dog = Product()
@@ -140,6 +143,7 @@ open class SampleDataInit(val context: Context) {
     }
 
     private fun initBookmarks(){
+        val aldrin = this.aldrin
         Realm.getDefaultInstance().executeTransaction { realm ->
             if (realm.where(Bookmark::class.java).count() == 0L) {
                 val bookmark1 = Bookmark()
@@ -156,6 +160,8 @@ open class SampleDataInit(val context: Context) {
     }
 
     private fun initFeedbacks(){
+        val nadine = this.nadine
+        val aldrin = this.aldrin
         Realm.getDefaultInstance().executeTransaction { realm ->
             if (realm.where(Bookmark::class.java).count() == 0L) {
                 val feedback1 = Feedback()
@@ -176,6 +182,8 @@ open class SampleDataInit(val context: Context) {
     }
 
     private fun initMessage(){
+        val nadine = this.nadine
+        val aldrin = this.aldrin
         Realm.getDefaultInstance().executeTransaction { realm ->
             if (realm.where(Bookmark::class.java).count() == 0L) {
                 val userMessage1 = UserMessage()
