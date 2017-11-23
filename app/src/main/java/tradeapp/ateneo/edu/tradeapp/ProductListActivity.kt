@@ -9,6 +9,7 @@ import org.androidannotations.annotations.UiThread
 import tradeapp.ateneo.edu.tradeapp.adapters.ProductListAdapter
 import tradeapp.ateneo.edu.tradeapp.filter.ProductFilter
 import tradeapp.ateneo.edu.tradeapp.model.Product
+import java.util.*
 
 
 @EActivity(R.layout.activity_main)
@@ -24,16 +25,19 @@ open class ProductListActivity : AbstractMainActivity() {
     @UiThread
     protected open fun updateView(){
         val realm = Realm.getDefaultInstance()
-        var products: OrderedRealmCollection<Product>? = null
+        var products: OrderedRealmCollection<Product>
         when(filter.type){
             "category" ->  {
-                products = realm.where(Product::class.java).equalTo("category.name", filter.keyword).findAllSorted("dateCreated", Sort.DESCENDING)
+                products = realm.where(Product::class.java)
+                        .equalTo("category.name", filter.keyword)
+                        .equalTo("sold", false)
+                        .findAllSorted("dateCreated", Sort.DESCENDING)
             }
             else -> throw UnsupportedOperationException("${filter.type} not yet supported")
         }
 
 
-        listView.adapter = ProductListAdapter(this.applicationContext, products!!)
+        listView.adapter = ProductListAdapter(this.applicationContext, products)
     }
 
 }
