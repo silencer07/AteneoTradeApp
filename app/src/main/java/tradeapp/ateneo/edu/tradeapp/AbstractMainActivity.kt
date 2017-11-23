@@ -1,6 +1,7 @@
 package tradeapp.ateneo.edu.tradeapp
 
 import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -42,7 +43,7 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_account -> {
-                //mTextMessage!!.setText(R.string.title_dashboard)
+                baseContext.startActivity(Intent(baseContext, LoginActivity::class.java))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_home -> {
