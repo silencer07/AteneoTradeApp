@@ -41,7 +41,7 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_dashboard -> {
+            R.id.navigation_account -> {
                 //mTextMessage!!.setText(R.string.title_dashboard)
                 return@OnNavigationItemSelectedListener true
             }
@@ -49,7 +49,7 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
                 //mTextMessage!!.setText(R.string.title_home)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_sell -> {
                 //mTextMessage!!.setText(R.string.title_notifications)
                 return@OnNavigationItemSelectedListener true
             }
@@ -63,8 +63,11 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
     }
 
     @AfterViews
-    fun setHomeAsMainPage(){
+    fun setupBottomNavigation(){
         navigation.menu.getItem(1).setChecked(true)
+
+        navigation.menu.getItem(0).setIcon(IconicsDrawable(this).icon(FontAwesome.Icon.faw_user).actionBar())
+        navigation.menu.getItem(2).setIcon(IconicsDrawable(this).icon(FontAwesome.Icon.faw_usd).actionBar())
     }
 
     @AfterViews
