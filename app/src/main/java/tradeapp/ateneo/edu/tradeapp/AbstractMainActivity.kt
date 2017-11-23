@@ -24,10 +24,11 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.androidannotations.annotations.*
 import tradeapp.ateneo.edu.tradeapp.adapters.CategoryListAdapter
+import tradeapp.ateneo.edu.tradeapp.model.ActivityWithIconicsContext
 import tradeapp.ateneo.edu.tradeapp.model.Category
 
 @EActivity(R.layout.activity_main)
-abstract class AbstractMainActivity : AppCompatActivity() {
+abstract class AbstractMainActivity : ActivityWithIconicsContext() {
 
     @ViewById(R.id.navigation)
     protected lateinit var navigation: BottomNavigationView;
@@ -54,10 +55,6 @@ abstract class AbstractMainActivity : AppCompatActivity() {
             }
         }
         false
-    }
-
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(IconicsContextWrapper.wrap(newBase))
     }
 
     @AfterViews
