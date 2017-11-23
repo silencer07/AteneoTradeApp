@@ -78,6 +78,8 @@ dependencies {
     compile "nz.bradcampbell:paperparcel-kotlin:${paperParcelVersion}" // Optional
     kapt "nz.bradcampbell:paperparcel-compiler:${paperParcelVersion}"
 
+    compile 'com.synnapps:carouselview:0.1.4'
+    compile "com.android.support:gridlayout-v7:${supportLibVersion}"
     compile group: "commons-io", name: "commons-io", version: "2.6"
 }
 repositories {
