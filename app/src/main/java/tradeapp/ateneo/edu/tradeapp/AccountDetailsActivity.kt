@@ -1,5 +1,6 @@
 package tradeapp.ateneo.edu.tradeapp
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.v7.app.AppCompatActivity
@@ -14,13 +15,19 @@ import org.androidannotations.annotations.Click
 import org.androidannotations.annotations.EActivity
 import tradeapp.ateneo.edu.tradeapp.service.UserService
 import java.io.ByteArrayInputStream
-import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
+import android.content.Intent
+import android.graphics.Bitmap
+import android.provider.MediaStore
+import java.io.ByteArrayOutputStream
 
 
 @EActivity(R.layout.activity_account_details)
 open class AccountDetailsActivity : AppCompatActivity() {
+
+    companion object {
+        val PICK_IMAGE_REQUEST = 1
+    }
 
     @Bean
     protected lateinit var userService: UserService
@@ -74,5 +81,34 @@ open class AccountDetailsActivity : AppCompatActivity() {
     open fun logout(){
         userService.logoutUser()
         finish()
+    }
+
+    @Click(R.id.userAvatar)
+    open fun changeAccountAvatar(){
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && intent != null && intent.data != null) {
+            val uri = intent.data
+
+            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+            val bos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+
+            val user = userService.getLoggedInUser()
+            Realm.getDefaultInstance().executeTransaction { realm ->
+                user!!.photo = bos.toByteArray()
+                realm.copyToRealmOrUpdate(user)
+            }
+
+            val image = Drawable.createFromStream(ByteArrayInputStream(user!!.photo), user.getDisplayName())
+            userAvatar.setImageDrawable(image)
+        }
     }
 }
