@@ -43,7 +43,7 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_account -> {
-                baseContext.startActivity(Intent(baseContext, LoginActivity::class.java))
+                baseContext.startActivity(Intent(baseContext, LoginActivity_::class.java))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_home -> {

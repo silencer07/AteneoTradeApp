@@ -7,13 +7,20 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_login.*
+import org.androidannotations.annotations.AfterViews
+import org.androidannotations.annotations.Bean
+import org.androidannotations.annotations.EActivity
+import tradeapp.ateneo.edu.tradeapp.service.AuthenticationException
+import tradeapp.ateneo.edu.tradeapp.service.UserService
 
-class LoginActivity : AppCompatActivity(){
+@EActivity(R.layout.activity_login)
+open class LoginActivity : AppCompatActivity(){
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        // Set up the login form.
+    @Bean
+    lateinit var userService: UserService
+
+    @AfterViews
+    open protected fun afterSetup(){
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                 attemptLogin()
@@ -38,7 +45,7 @@ class LoginActivity : AppCompatActivity(){
         password.error = null
 
         // Store values at the time of the login attempt.
-        val emailStr = usernameText.text.toString()
+        val usernameStr = usernameText.text.toString()
         val passwordStr = password.text.toString()
 
         var cancel = false
@@ -52,7 +59,7 @@ class LoginActivity : AppCompatActivity(){
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(emailStr)) {
+        if (TextUtils.isEmpty(usernameStr)) {
             usernameText.error = getString(R.string.error_field_required)
             focusView = usernameText
             cancel = true
@@ -63,7 +70,12 @@ class LoginActivity : AppCompatActivity(){
             // form field with an error.
             focusView?.requestFocus()
         } else {
-
+            try {
+                userService.loginOrCreate(usernameStr, passwordStr)
+                finish()
+            } catch(e: AuthenticationException){
+                usernameText.error = e.message
+            }
         }
     }
 
