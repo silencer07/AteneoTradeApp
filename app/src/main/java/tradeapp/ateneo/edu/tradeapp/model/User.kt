@@ -23,7 +23,7 @@ open class User : RealmObject() {
     var name: String = StringUtils.EMPTY
         set(value){ field = value.toLowerCase() }
 
-    var degree: String? = null
+    var degree: String = StringUtils.EMPTY
 
 
     var photo: ByteArray? = null

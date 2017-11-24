@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.Bean

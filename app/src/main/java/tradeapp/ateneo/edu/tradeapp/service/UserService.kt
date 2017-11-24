@@ -1,5 +1,6 @@
 package tradeapp.ateneo.edu.tradeapp.service
 
+import io.realm.Case
 import io.realm.Realm
 import org.androidannotations.annotations.EBean
 import tradeapp.ateneo.edu.tradeapp.model.ApplicationData
@@ -14,7 +15,7 @@ open class UserService {
 
     fun loginOrCreate(username: String, password: String){
         val realm = Realm.getDefaultInstance();
-        val user = realm.where(User::class.java).equalTo("username", username).findFirst();
+        val user = realm.where(User::class.java).equalTo("username", username.toLowerCase()).findFirst();
         if(user != null){
             if(user.password.equals(password)){
                 val appData = realm.where(ApplicationData::class.java).equalTo("id", 1L).findFirst() ?: ApplicationData();

@@ -30,7 +30,7 @@ open class AccountDetailsActivity : AppCompatActivity() {
         val user = userService.getLoggedInUser()
         usernameText.append(user!!.username)
         passwordText.append(user.password)
-        studentIdText.append(user.studentId.toString())
+        studentIdText.append(if(user.studentId != 0L) user.studentId.toString() else "")
         nameText.append(user.name)
         degreeText.append(user.degree)
 
@@ -73,5 +73,6 @@ open class AccountDetailsActivity : AppCompatActivity() {
     @Click(R.id.logoutButton)
     open fun logout(){
         userService.logoutUser()
+        finish()
     }
 }

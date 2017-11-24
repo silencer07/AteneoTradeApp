@@ -50,9 +50,9 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
         when (item.itemId) {
             R.id.navigation_account -> {
                 if(userService.getLoggedInUser() != null) {
-                    baseContext.startActivity(Intent(baseContext, AccountDetailsActivity_::class.java))
+                    baseContext.startActivity(Intent(this, AccountDetailsActivity_::class.java))
                 } else {
-                    baseContext.startActivity(Intent(baseContext, LoginActivity_::class.java))
+                    baseContext.startActivity(Intent(this, LoginActivity_::class.java))
                 }
                 return@OnNavigationItemSelectedListener true
             }
@@ -63,7 +63,7 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
                 if(userService.getLoggedInUser() != null) {
                     println("TODO");
                 } else {
-                    baseContext.startActivity(Intent(baseContext, LoginActivity_::class.java))
+                    baseContext.startActivity(Intent(this, LoginActivity_::class.java))
                 }
 
                 return@OnNavigationItemSelectedListener true
