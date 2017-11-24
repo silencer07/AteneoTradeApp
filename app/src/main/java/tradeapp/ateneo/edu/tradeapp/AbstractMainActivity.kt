@@ -27,6 +27,7 @@ import org.androidannotations.annotations.*
 import tradeapp.ateneo.edu.tradeapp.adapters.CategoryListAdapter
 import tradeapp.ateneo.edu.tradeapp.model.ActivityWithIconicsContext
 import tradeapp.ateneo.edu.tradeapp.model.Category
+import tradeapp.ateneo.edu.tradeapp.service.UserService
 
 @EActivity(R.layout.activity_main)
 abstract class AbstractMainActivity : ActivityWithIconicsContext() {
@@ -40,18 +41,31 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
     @ViewById(R.id.listView)
     protected lateinit var listView: GridView
 
+    @Bean
+    protected lateinit var userService: UserService
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+
+
         when (item.itemId) {
             R.id.navigation_account -> {
-                baseContext.startActivity(Intent(baseContext, LoginActivity_::class.java))
+                if(userService.getLoggedInUser() != null) {
+                    baseContext.startActivity(Intent(baseContext, AccountDetailsActivity_::class.java))
+                } else {
+                    baseContext.startActivity(Intent(baseContext, LoginActivity_::class.java))
+                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_home -> {
-                //mTextMessage!!.setText(R.string.title_home)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_sell -> {
-                //mTextMessage!!.setText(R.string.title_notifications)
+                if(userService.getLoggedInUser() != null) {
+                    println("TODO");
+                } else {
+                    baseContext.startActivity(Intent(baseContext, LoginActivity_::class.java))
+                }
+
                 return@OnNavigationItemSelectedListener true
             }
         }

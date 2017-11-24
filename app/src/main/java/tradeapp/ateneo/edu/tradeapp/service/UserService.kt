@@ -34,4 +34,15 @@ open class UserService {
             }
         }
     }
+
+    fun logoutUser(){
+        val realm = Realm.getDefaultInstance()
+        val appData = realm.where(ApplicationData::class.java).equalTo("id", 1L).findFirst()
+        if(appData != null) {
+            realm.executeTransaction { realm ->
+                appData.loggedInUser = null
+                realm.copyToRealmOrUpdate(appData)
+            }
+        }
+    }
 }

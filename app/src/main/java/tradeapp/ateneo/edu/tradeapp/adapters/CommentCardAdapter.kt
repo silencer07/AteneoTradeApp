@@ -38,7 +38,7 @@ class CommentCardAdapter(val context: Context, comments: OrderedRealmCollection<
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val comment = data!![position]
-        var image: Drawable
+        val image: Drawable
         if(comment.user!!.photo != null) {
             image = Drawable.createFromStream(ByteArrayInputStream(comment.user!!.photo), comment.user!!.getDisplayName())
         } else {
