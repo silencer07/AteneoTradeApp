@@ -57,11 +57,12 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_home -> {
+                //TODO if subclass return to ActivityMain
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_sell -> {
                 if(userService.getLoggedInUser() != null) {
-                    println("TODO");
+                    baseContext.startActivity(Intent(this, AddProductActivity_::class.java))
                 } else {
                     baseContext.startActivity(Intent(this, LoginActivity_::class.java))
                 }
