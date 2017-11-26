@@ -82,7 +82,7 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
     }
 
     @AfterViews
-    fun hideCommentsIfNotLoggedOn(){
+    fun hideCommentBoxIfNotLoggedOn(){
         if(userService.getLoggedInUser() == null){
             addCommentLabel.visibility = TextView.INVISIBLE
             addCommentText.visibility = EditText.INVISIBLE
@@ -115,7 +115,8 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
         if(StringUtils.isBlank(commentStr)){
             Toast.makeText(this,"Cannot add empty comment", Toast.LENGTH_SHORT).show()
         } else {
-            Realm.getDefaultInstance().executeTransaction { realm ->
+            val realm = Realm.getDefaultInstance()
+            realm.executeTransaction { realm ->
                 val product = getProduct()
                 val comment: ProductComment = realm.createObject(ProductComment::class.java, UUID.randomUUID().toString())
                 comment.text = commentStr
@@ -124,7 +125,12 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
 
                 realm.copyToRealm(product)
             }
-            commentList.adapter.notifyDataSetChanged()
+
+            val comments: RealmResults<ProductComment> = realm.where(ProductComment::class.java)
+                    .equalTo("product.uuid", productUuid)
+                    .findAllSorted("dateCreated")
+            commentList.adapter = CommentCardAdapter(baseContext, comments)
+
             Toast.makeText(this,"comment added successfully", Toast.LENGTH_SHORT).show()
             addCommentText.text.clear()
         }
