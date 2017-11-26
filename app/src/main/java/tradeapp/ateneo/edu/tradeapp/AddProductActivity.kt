@@ -7,21 +7,33 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Toast
+import io.realm.Case
 import io.realm.Realm
+import io.realm.RealmList
 import io.realm.RealmResults
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import tradeapp.ateneo.edu.tradeapp.model.Category
 import kotlinx.android.synthetic.main.activity_add_product.*
+import org.androidannotations.annotations.Bean
 import org.androidannotations.annotations.Click
 import org.apache.commons.lang3.StringUtils
+import tradeapp.ateneo.edu.tradeapp.model.Product
+import tradeapp.ateneo.edu.tradeapp.service.UserService
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 @EActivity(R.layout.activity_add_product)
 open class AddProductActivity : AppCompatActivity() {
+
+    @Bean
+    protected lateinit var userService: UserService
 
     val imageByteArraysToBeShown = ArrayList<ByteArray>()
 
@@ -74,6 +86,48 @@ open class AddProductActivity : AppCompatActivity() {
         val bos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
         imageByteArraysToBeShown.add(bos.toByteArray())
+    }
+
+    @Click(R.id.addProductButton)
+    open fun postItem(){
+        if(imageByteArraysToBeShown.isEmpty()){
+            Toast.makeText(this, "Please select pictures for the posting", Toast.LENGTH_SHORT).show()
+            return
+        }
+        var focusView: View? = null
+        if(StringUtils.isEmpty(addProductTitle.text.toString())){
+            addProductTitle.error = "Title is required"
+            focusView = addProductTitle
+        } else if(StringUtils.isEmpty(addProductPrice.text.toString())){
+            addProductPrice.error = "Price is required"
+            focusView = addProductPrice
+        }
+
+        if(focusView != null){
+            focusView.requestFocus()
+            return
+        }
+
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            val product = Product()
+            product.title = addProductTitle.text.toString()
+            product.description = addProductDescription.text.toString()
+
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.CEILING
+            product.price = df.format(addProductPrice.text.toString().toFloat()).toFloat()
+
+            product.photos.addAll(imageByteArraysToBeShown)
+
+
+            product.user = userService.getLoggedInUser()
+
+            val category = realm.where(Category::class.java).equalTo("name", addProductCategorySpinner.selectedItem.toString(), Case.INSENSITIVE).findFirst()
+            product.category = category
+
+            realm.copyToRealm(product)
+        }
+        finish()
     }
 
 }

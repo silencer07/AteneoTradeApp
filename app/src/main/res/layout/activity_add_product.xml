@@ -58,6 +58,7 @@
             android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/addProductDescription"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:hint="Description"
