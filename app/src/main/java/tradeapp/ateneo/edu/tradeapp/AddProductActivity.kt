@@ -21,11 +21,16 @@ import kotlinx.android.synthetic.main.activity_add_product.*
 import org.androidannotations.annotations.*
 import org.apache.commons.lang3.StringUtils
 import tradeapp.ateneo.edu.tradeapp.model.Product
+import tradeapp.ateneo.edu.tradeapp.model.ProductComment
 import tradeapp.ateneo.edu.tradeapp.service.UserService
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
+import tradeapp.ateneo.edu.tradeapp.model.User
+
 
 @EActivity(R.layout.activity_add_product)
 open class AddProductActivity : AppCompatActivity() {
@@ -65,9 +70,48 @@ open class AddProductActivity : AppCompatActivity() {
             showImagesToCarousel()
 
             addProductButton.text = "Update Item"
+
+            if(getComments().isEmpty()){
+                addProductReserveButton.visibility = View.GONE
+            }
         } else {
-            addProductReserveButton.visibility = Button.INVISIBLE
+            addProductReserveButton.visibility = View.GONE
         }
+    }
+
+    private fun getComments(): RealmResults<ProductComment> {
+        val p = getProduct()
+        return Realm.getDefaultInstance().where(ProductComment::class.java)
+                .equalTo("product.uuid", p!!.uuid)
+                .notEqualTo("user.username", p.user!!.username)
+                .findAllSorted("user.username")
+    }
+
+    @Click(R.id.addProductReserveButton)
+    open fun reserve(){
+        val commenters = getComments().map { c -> c.user!!.getDisplayName() }.distinct().toList().toTypedArray()
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Reserve to")
+        builder.setItems(commenters, { dialog, index ->
+            Realm.getDefaultInstance().executeTransaction { realm ->
+                val user = realm.where(User::class.java)
+                    .equalTo("username", commenters[index])
+                    .or()
+                    .equalTo("name", commenters[index])
+                    .findFirst()
+
+                val p = getProduct()
+                p!!.reservedTo = user
+                realm.copyToRealmOrUpdate(p)
+
+                Toast.makeText(this,
+                "Reserving " + p.title  +" to " + user!!.getDisplayName() + " successful",
+                    Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
+        builder.show()
     }
 
     @Click(R.id.addProductCarouselView)
