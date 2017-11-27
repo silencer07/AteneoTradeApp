@@ -40,4 +40,10 @@ open class ProductListActivity : AbstractMainActivity() {
         listView.adapter = ProductListAdapter(this.applicationContext, products)
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        updateView()
+    }
+
 }

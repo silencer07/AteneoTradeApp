@@ -30,6 +30,7 @@ import java.text.DecimalFormat
 import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import tradeapp.ateneo.edu.tradeapp.model.User
+import java.util.logging.Handler
 
 
 @EActivity(R.layout.activity_add_product)
@@ -71,12 +72,29 @@ open class AddProductActivity : AppCompatActivity() {
 
             addProductButton.text = "Update Item"
 
-            if(getComments().isEmpty()){
+            if(getComments().isEmpty() || p.sold){
                 addProductReserveButton.visibility = View.GONE
             }
         } else {
             addProductReserveButton.visibility = View.GONE
         }
+
+        if(p == null || p.user != userService.getLoggedInUser() || p.reservedTo == null || p.sold){
+            addProductMarkAsSold.visibility = View.GONE
+        }
+    }
+
+    @Click(R.id.addProductMarkAsSold)
+    fun markAsSold(){
+        val p = getProduct()
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            p!!.sold = true
+            realm.copyToRealmOrUpdate(p)
+        }
+        Toast.makeText(this, "Product successfully sold to " + p!!.reservedTo!!.getDisplayName(), Toast.LENGTH_SHORT).show()
+        android.os.Handler().postDelayed({
+            finish()
+        }, 2000)
     }
 
     private fun getComments(): RealmResults<ProductComment> {
@@ -109,6 +127,7 @@ open class AddProductActivity : AppCompatActivity() {
                 "Reserving " + p.title  +" to " + user!!.getDisplayName() + " successful",
                     Toast.LENGTH_SHORT)
                     .show()
+                addProductMarkAsSold.visibility = View.VISIBLE
             }
         })
         builder.show()

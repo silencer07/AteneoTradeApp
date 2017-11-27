@@ -87,6 +87,13 @@
                 android:layout_weight="1"
                 android:text="Reserve" />
         </LinearLayout>
+        <Button
+            android:id="@+id/addProductMarkAsSold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Mark as sold" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
 
