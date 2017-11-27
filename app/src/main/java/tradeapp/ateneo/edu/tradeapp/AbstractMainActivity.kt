@@ -1,32 +1,16 @@
 package tradeapp.ateneo.edu.tradeapp
 
-import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
-import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.content.ContextCompat
-import android.support.v4.view.LayoutInflaterCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.GridView
-import android.widget.ListView
-import android.widget.TextView
-import com.mikepenz.iconics.context.IconicsLayoutInflater
 import android.widget.Toast
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.context.IconicsContextWrapper
-import io.realm.Realm
-import io.realm.RealmResults
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
 import org.androidannotations.annotations.*
-import tradeapp.ateneo.edu.tradeapp.adapters.CategoryListAdapter
 import tradeapp.ateneo.edu.tradeapp.model.ActivityWithIconicsContext
-import tradeapp.ateneo.edu.tradeapp.model.Category
 import tradeapp.ateneo.edu.tradeapp.service.UserService
 
 @EActivity(R.layout.activity_main)
@@ -45,8 +29,6 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
     protected lateinit var userService: UserService
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-
-
         when (item.itemId) {
             R.id.navigation_account -> {
                 if(userService.getLoggedInUser() != null) {
@@ -74,7 +56,7 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
     }
 
     @AfterViews
-    fun setText() {
+    fun setNavigatonItemSelectedListener() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
