@@ -1,5 +1,6 @@
 package tradeapp.ateneo.edu.tradeapp
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
@@ -164,7 +165,9 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_product_details_edit -> {
-                println("TODO")
+                val i = Intent(this, AddProductActivity_::class.java)
+                i.putExtra("productUuid", getProduct()!!.uuid)
+                this.startActivity(i)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_product_details_delete -> {

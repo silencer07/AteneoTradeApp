@@ -15,12 +15,9 @@ import io.realm.Case
 import io.realm.Realm
 import io.realm.RealmList
 import io.realm.RealmResults
-import org.androidannotations.annotations.AfterViews
-import org.androidannotations.annotations.EActivity
 import tradeapp.ateneo.edu.tradeapp.model.Category
 import kotlinx.android.synthetic.main.activity_add_product.*
-import org.androidannotations.annotations.Bean
-import org.androidannotations.annotations.Click
+import org.androidannotations.annotations.*
 import org.apache.commons.lang3.StringUtils
 import tradeapp.ateneo.edu.tradeapp.model.Product
 import tradeapp.ateneo.edu.tradeapp.service.UserService
@@ -35,6 +32,9 @@ open class AddProductActivity : AppCompatActivity() {
     @Bean
     protected lateinit var userService: UserService
 
+    @Extra
+    lateinit var productUuid: String
+
     val imageByteArraysToBeShown = ArrayList<ByteArray>()
 
     @AfterViews
@@ -42,6 +42,26 @@ open class AddProductActivity : AppCompatActivity() {
         val categories: RealmResults<Category> = Realm.getDefaultInstance().where(Category::class.java).findAll()
         val names = categories.map { category -> StringUtils.capitalize(category.name)  }
         addProductCategorySpinner.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, names)
+    }
+
+    @AfterViews
+    fun setupProduct(){
+        val p = getProduct()
+        if(p != null){
+            addProductTitle.append(p.title)
+            addProductPrice.append(p.price.toString())
+            addProductDescription.append(p.description)
+
+            for (i in 0 until addProductCategorySpinner.getCount()) {
+                if (addProductCategorySpinner.getItemAtPosition(i).toString().equals(p.category!!.name, true)) {
+                    addProductCategorySpinner.setSelection(i)
+                    break
+                }
+            }
+
+            imageByteArraysToBeShown.addAll(p.photos)
+            showImagesToCarousel()
+        }
     }
 
     @Click(R.id.addProductCarouselView)
@@ -68,16 +88,20 @@ open class AddProductActivity : AppCompatActivity() {
                 }
             }
 
-            if(imageByteArraysToBeShown.isNotEmpty()){
-                addProductCarouselView.setImageListener({ position: Int, imageView: ImageView ->
-                    val image = Drawable.createFromStream(ByteArrayInputStream(imageByteArraysToBeShown.get(position)), "Image " + position)
-                    imageView.setImageDrawable(image);
-                    imageView.scaleType = ImageView.ScaleType.FIT_XY;
-                })
+            showImagesToCarousel()
+        }
+    }
 
-                addProductCarouselView.background = null
-                addProductCarouselView.pageCount = imageByteArraysToBeShown.size
-            }
+    private fun showImagesToCarousel() {
+        if (imageByteArraysToBeShown.isNotEmpty()) {
+            addProductCarouselView.setImageListener({ position: Int, imageView: ImageView ->
+                val image = Drawable.createFromStream(ByteArrayInputStream(imageByteArraysToBeShown.get(position)), "Image " + position)
+                imageView.setImageDrawable(image);
+                imageView.scaleType = ImageView.ScaleType.FIT_XY;
+            })
+
+            addProductCarouselView.background = null
+            addProductCarouselView.pageCount = imageByteArraysToBeShown.size
         }
     }
 
@@ -130,4 +154,10 @@ open class AddProductActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun getProduct(): Product?{
+        if(StringUtils.isNotBlank(productUuid)){
+            return Realm.getDefaultInstance().where(Product::class.java).equalTo("uuid", productUuid).findFirst()
+        }
+        return null
+    }
 }
