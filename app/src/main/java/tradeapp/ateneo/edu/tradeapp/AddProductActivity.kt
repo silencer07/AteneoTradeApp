@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import io.realm.Case
@@ -32,10 +33,11 @@ open class AddProductActivity : AppCompatActivity() {
     @Bean
     protected lateinit var userService: UserService
 
+    @JvmField
     @Extra
-    lateinit var productUuid: String
+    protected var productUuid: String = StringUtils.EMPTY
 
-    val imageByteArraysToBeShown = ArrayList<ByteArray>()
+    private val imageByteArraysToBeShown = ArrayList<ByteArray>()
 
     @AfterViews
     fun setupCategories(){
@@ -61,6 +63,10 @@ open class AddProductActivity : AppCompatActivity() {
 
             imageByteArraysToBeShown.addAll(p.photos)
             showImagesToCarousel()
+
+            addProductButton.text = "Update Item"
+        } else {
+            addProductReserveButton.visibility = Button.INVISIBLE
         }
     }
 
@@ -133,7 +139,7 @@ open class AddProductActivity : AppCompatActivity() {
         }
 
         Realm.getDefaultInstance().executeTransaction { realm ->
-            val product = Product()
+            val product = getProduct() ?: Product()
             product.title = addProductTitle.text.toString()
             product.description = addProductDescription.text.toString()
 
