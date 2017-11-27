@@ -1,173 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="tradeapp.ateneo.edu.tradeapp.ProductDetailsActivity">
 
-        <com.synnapps.carouselview.CarouselView
-            android:id="@+id/carouselView"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="60dp"
+        android:id="@+id/scrollView"
+        >
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:fillColor="#FFFFFFFF"
-            app:pageColor="#00000000"
-            app:radius="6dp"
-            app:slideInterval="3000"
-            app:strokeColor="#FF777777"
-            app:strokeWidth="1dp"></com.synnapps.carouselview.CarouselView>
+            android:layout_height="match_parent"
+            tools:context="tradeapp.ateneo.edu.tradeapp.ProductDetailsActivity">
 
-        <TextView
-            android:id="@+id/productTitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:id="@+id/gridView"
-            android:orientation="horizontal"
-            android:paddingBottom="10sp">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="Posted by:"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:id="@+id/postedByText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="8"
-                android:text="sampleUser"
-                android:textSize="16sp"
-                app:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="Date posted:"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:id="@+id/createdDateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="8"
-                android:text="11/11/2011"
-                android:textSize="16sp"
-                app:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="Price:"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:id="@+id/priceText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="8"
-                android:text="10.00"
-                android:textSize="16sp"
-                app:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:id="@+id/reservedToLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="Reserved To:"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:id="@+id/reservedToText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="8"
-                android:text="sampleUser2"
-                android:textSize="16sp"
-                app:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:text="Description:"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_gravity="fill_horizontal" />
-
-            <TextView
-                android:id="@+id/descriptionText"
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/carouselView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_columnSpan="2"
-                android:layout_gravity="fill_vertical"
-                android:layout_row="5"
-                android:text="Foo bar baz"
-                android:textSize="16sp" />
-        </GridLayout>
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Comments"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+                android:layout_height="300dp"
+                app:fillColor="#FFFFFFFF"
+                app:pageColor="#00000000"
+                app:radius="6dp"
+                app:slideInterval="3000"
+                app:strokeColor="#FF777777"
+                app:strokeWidth="1dp"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/commentList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/addCommentLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Comment:"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/productTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/addCommentText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine"/>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:id="@+id/gridView"
+                android:orientation="horizontal"
+                android:paddingBottom="10sp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:id="@+id/addCommentBtn"
-            android:text="Post comment" />
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:text="Posted by:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:id="@+id/postedByText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="8"
+                    android:text="sampleUser"
+                    android:textSize="16sp"
+                    app:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:text="Date posted:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:id="@+id/createdDateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="8"
+                    android:text="11/11/2011"
+                    android:textSize="16sp"
+                    app:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:text="Price:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:id="@+id/priceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="8"
+                    android:text="10.00"
+                    android:textSize="16sp"
+                    app:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:id="@+id/reservedToLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:text="Reserved To:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:id="@+id/reservedToText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="8"
+                    android:text="sampleUser2"
+                    android:textSize="16sp"
+                    app:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:text="Description:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:id="@+id/descriptionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_column="0"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="fill_vertical"
+                    android:layout_row="5"
+                    android:text="Foo bar baz"
+                    android:textSize="16sp" />
+            </GridLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comments"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/commentList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/addCommentLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Comment:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/addCommentText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textMultiLine"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:id="@+id/addCommentBtn"
+                android:text="Post comment" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/productDetailsNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        android:minHeight="60dp"
+        app:menu="@menu/product_details_menu" />
+</android.support.design.widget.CoordinatorLayout>

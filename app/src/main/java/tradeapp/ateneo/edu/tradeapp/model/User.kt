@@ -31,4 +31,19 @@ open class User : RealmObject() {
     fun getDisplayName(): String{
         return if(StringUtils.isNotBlank(name)) name else username
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is User) return false
+
+        if (username != other.username) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return username.hashCode()
+    }
+
+
 }

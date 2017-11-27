@@ -1,12 +1,16 @@
 package tradeapp.ateneo.edu.tradeapp
 
 import android.graphics.drawable.Drawable
+import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.CoordinatorLayout
+import android.support.v4.content.ContextCompat
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.Menu
+import android.widget.*
+import com.mikepenz.fontawesome_typeface_library.FontAwesome
+import com.mikepenz.iconics.IconicsDrawable
 import com.synnapps.carouselview.CarouselView
 import io.realm.Realm
 import io.realm.RealmResults
@@ -59,6 +63,12 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
     @ViewById(R.id.addCommentText)
     lateinit var addCommentText: EditText
 
+    @ViewById(R.id.productDetailsNavigation)
+    lateinit var navigation: BottomNavigationView
+
+    @ViewById(R.id.scrollView)
+    lateinit var scrollView: NestedScrollView
+
     @Bean
     lateinit var userService: UserService
 
@@ -82,7 +92,7 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
     }
 
     @AfterViews
-    fun hideCommentBoxIfNotLoggedOn(){
+    fun hideIfNotLoggedIn(){
         if(userService.getLoggedInUser() == null){
             addCommentLabel.visibility = TextView.INVISIBLE
             addCommentText.visibility = EditText.INVISIBLE
@@ -135,4 +145,34 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
             addCommentText.text.clear()
         }
     }
+
+    @AfterViews
+    fun setupBottomNavigation(){
+        if(getProduct()!!.user?.equals(userService.getLoggedInUser())!!){
+            navigation.menu.getItem(0).setIcon(IconicsDrawable(this).icon(FontAwesome.Icon.faw_pencil).actionBar())
+            navigation.menu.getItem(1).setIcon(IconicsDrawable(this).icon(FontAwesome.Icon.faw_trash).actionBar())
+
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        } else {
+            navigation.visibility = BottomNavigationView.INVISIBLE
+
+            val p = scrollView.layoutParams as CoordinatorLayout.LayoutParams
+            p.bottomMargin = 0
+        }
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_product_details_edit -> {
+                println("TODO")
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_product_details_delete -> {
+                println("TODO")
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+    }
+
 }

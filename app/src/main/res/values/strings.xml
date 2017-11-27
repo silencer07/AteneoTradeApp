@@ -4,6 +4,8 @@
     <string name="title_account">Account</string>
     <string name="title_sell">Sell</string>
     <string name="title_activity_login">Login</string>
+    <string name="title_edit">Edit</string>
+    <string name="title_delete">Delete</string>
 
     <!-- Strings related to login -->
     <string name="prompt_username">Username</string>
