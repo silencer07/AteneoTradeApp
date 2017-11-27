@@ -147,6 +147,7 @@ open class AddProductActivity : AppCompatActivity() {
             df.roundingMode = RoundingMode.CEILING
             product.price = df.format(addProductPrice.text.toString().toFloat()).toFloat()
 
+            product.photos.clear()
             product.photos.addAll(imageByteArraysToBeShown)
 
 
@@ -157,6 +158,7 @@ open class AddProductActivity : AppCompatActivity() {
 
             realm.copyToRealm(product)
         }
+        setResult(Activity.RESULT_OK)
         finish()
     }
 

@@ -1,5 +1,6 @@
 package tradeapp.ateneo.edu.tradeapp
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.support.design.widget.BottomNavigationView
@@ -72,6 +73,10 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
 
     @Bean
     lateinit var userService: UserService
+
+    companion object {
+        val UPDATE_PRODUCT = 2
+    }
 
     @AfterViews
     fun initActivity(){
@@ -167,7 +172,7 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
             R.id.navigation_product_details_edit -> {
                 val i = Intent(this, AddProductActivity_::class.java)
                 i.putExtra("productUuid", getProduct()!!.uuid)
-                this.startActivity(i)
+                this.startActivityForResult(i, UPDATE_PRODUCT)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_product_details_delete -> {
@@ -176,6 +181,14 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
             }
         }
         false
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+
+        if (requestCode == UPDATE_PRODUCT && resultCode == Activity.RESULT_OK) {
+            initActivity()
+        }
     }
 
 }
