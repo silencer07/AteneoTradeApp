@@ -97,7 +97,6 @@ class ProductListAdapter(val loggedInUser: User?, val context: Context, products
                             .findFirst()
                         if(bookmark != null){
                             bookmark.deleteFromRealm()
-                            val drawable = viewHolder.bookmarkButton!!.background as IconicsDrawable
                             drawable.color(ContextCompat.getColor(context, R.color.colorLight))
                         } else {
                             bookmark = Bookmark()

@@ -20,6 +20,7 @@ import org.androidannotations.annotations.*
 import org.apache.commons.lang3.StringUtils
 import tradeapp.ateneo.edu.tradeapp.adapters.CommentCardAdapter
 import tradeapp.ateneo.edu.tradeapp.model.ActivityWithIconicsContext
+import tradeapp.ateneo.edu.tradeapp.model.Bookmark
 import tradeapp.ateneo.edu.tradeapp.model.Product
 import tradeapp.ateneo.edu.tradeapp.model.ProductComment
 import tradeapp.ateneo.edu.tradeapp.service.UserService
@@ -70,6 +71,9 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
 
     @ViewById(R.id.scrollView)
     lateinit var scrollView: NestedScrollView
+
+    @ViewById(R.id.bookmarkButton)
+    lateinit var bookmarkButton: Button
 
     @Bean
     lateinit var userService: UserService
@@ -188,6 +192,45 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
 
         if (requestCode == UPDATE_PRODUCT && resultCode == Activity.RESULT_OK) {
             initActivity()
+        }
+    }
+
+    @AfterViews
+    open fun setupBookmarkButton(){
+        var drawable = IconicsDrawable(this)
+        drawable = drawable.icon(FontAwesome.Icon.faw_heart).actionBar()
+
+        val isBookmarked = Realm.getDefaultInstance().where(Bookmark::class.java)
+                .equalTo("product.uuid", getProduct()!!.uuid)
+                .equalTo("user.username", userService.getLoggedInUser()!!.username)
+                .count() > 0
+
+        val colorId = if(isBookmarked) R.color.colorAccent else R.color.colorLight
+        drawable = drawable.color(ContextCompat.getColor(this, colorId))
+
+        bookmarkButton.background = drawable
+    }
+
+    @Click(R.id.bookmarkButton)
+    open fun bookmark(){
+        val product = getProduct()
+        val loggedInUser = userService.getLoggedInUser()
+        val drawable = bookmarkButton.background as IconicsDrawable
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            var bookmark = Realm.getDefaultInstance().where(Bookmark::class.java)
+                    .equalTo("product.uuid", product!!.uuid)
+                    .equalTo("user.username", loggedInUser!!.username)
+                    .findFirst()
+            if(bookmark != null){
+                bookmark.deleteFromRealm()
+                drawable.color(ContextCompat.getColor(this, R.color.colorLight))
+            } else {
+                bookmark = Bookmark()
+                bookmark.user = loggedInUser
+                bookmark.product = product
+                realm.copyToRealmOrUpdate(bookmark)
+                drawable.color(ContextCompat.getColor(this, R.color.colorAccent))
+            }
         }
     }
 

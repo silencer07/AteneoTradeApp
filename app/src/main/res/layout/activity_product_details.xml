@@ -19,16 +19,27 @@
             android:layout_height="match_parent"
             tools:context="tradeapp.ateneo.edu.tradeapp.ProductDetailsActivity">
 
-            <com.synnapps.carouselview.CarouselView
-                android:id="@+id/carouselView"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:fillColor="#FFFFFFFF"
-                app:pageColor="#00000000"
-                app:radius="6dp"
-                app:slideInterval="3000"
-                app:strokeColor="#FF777777"
-                app:strokeWidth="1dp"/>
+                android:layout_height="wrap_content">
+                <com.synnapps.carouselview.CarouselView
+                    android:id="@+id/carouselView"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:fillColor="#FFFFFFFF"
+                    app:pageColor="#00000000"
+                    app:radius="6dp"
+                    app:slideInterval="3000"
+                    app:strokeColor="#FF777777"
+                    app:strokeWidth="1dp"/>
+                <Button
+                    android:id="@+id/bookmarkButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="15dp"/>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/productTitleText"
