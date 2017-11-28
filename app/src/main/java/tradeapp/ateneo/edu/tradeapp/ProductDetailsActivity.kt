@@ -234,4 +234,9 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
         }
     }
 
+    @Click(R.id.postedByText)
+    fun showMessages(){
+        val i = Intent(this, MessageActivity_::class.java)
+        startActivity(i)
+    }
 }

@@ -74,6 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="8"
                     android:text="sampleUser"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp"
                     app:layout_gravity="fill_horizontal" />
 
