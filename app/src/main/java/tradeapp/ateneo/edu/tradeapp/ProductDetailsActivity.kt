@@ -10,12 +10,14 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
+import android.view.View
 import android.widget.*
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.mikepenz.iconics.IconicsDrawable
 import com.synnapps.carouselview.CarouselView
 import io.realm.Realm
 import io.realm.RealmResults
+import kotlinx.android.synthetic.main.activity_product_details.*
 import org.androidannotations.annotations.*
 import org.apache.commons.lang3.StringUtils
 import tradeapp.ateneo.edu.tradeapp.adapters.CommentCardAdapter
@@ -104,8 +106,9 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
     @AfterViews
     fun hideIfNotLoggedIn(){
         if(userService.getLoggedInUser() == null){
-            addCommentLabel.visibility = TextView.INVISIBLE
-            addCommentText.visibility = EditText.INVISIBLE
+            addCommentLabel.visibility = View.GONE
+            addCommentText.visibility = View.GONE
+            addCommentBtn.visibility = View.GONE
         }
     }
 
@@ -197,18 +200,23 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
 
     @AfterViews
     open fun setupBookmarkButton(){
-        var drawable = IconicsDrawable(this)
-        drawable = drawable.icon(FontAwesome.Icon.faw_heart).actionBar()
+        if(userService.getLoggedInUser() != null) {
+            var drawable = IconicsDrawable(this)
+            drawable = drawable.icon(FontAwesome.Icon.faw_heart).actionBar()
 
-        val isBookmarked = Realm.getDefaultInstance().where(Bookmark::class.java)
-                .equalTo("product.uuid", getProduct()!!.uuid)
-                .equalTo("user.username", userService.getLoggedInUser()!!.username)
-                .count() > 0
+            val isBookmarked = Realm.getDefaultInstance().where(Bookmark::class.java)
+                    .equalTo("product.uuid", getProduct()!!.uuid)
+                    .equalTo("user.username", userService.getLoggedInUser()!!.username)
+                    .count() > 0
 
-        val colorId = if(isBookmarked) R.color.colorAccent else R.color.colorLight
-        drawable = drawable.color(ContextCompat.getColor(this, colorId))
+            val colorId = if(isBookmarked) R.color.colorAccent else R.color.colorLight
+            drawable = drawable.color(ContextCompat.getColor(this, colorId))
 
-        bookmarkButton.background = drawable
+            bookmarkButton.background = drawable
+        } else {
+            bookmarkButton.visibility = View.GONE
+        }
+
     }
 
     @Click(R.id.bookmarkButton)
@@ -236,7 +244,10 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
 
     @Click(R.id.postedByText)
     fun showMessages(){
-        val i = Intent(this, MessageActivity_::class.java)
-        startActivity(i)
+        if(userService.getLoggedInUser() != null) {
+            val i = Intent(this, MessageActivity_::class.java)
+            i.putExtra("username", getProduct()!!.user!!.username)
+            startActivity(i)
+        }
     }
 }

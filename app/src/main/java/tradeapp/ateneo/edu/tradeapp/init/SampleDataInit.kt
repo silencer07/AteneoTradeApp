@@ -185,14 +185,14 @@ open class SampleDataInit(val context: Context) {
         val nadine = this.nadine
         val aldrin = this.aldrin
         Realm.getDefaultInstance().executeTransaction { realm ->
-            if (realm.where(Bookmark::class.java).count() == 0L) {
+            if (realm.where(UserMessage::class.java).count() == 0L) {
                 val userMessage1 = UserMessage()
                 userMessage1.from = aldrin
                 userMessage1.to = nadine
                 userMessage1.text = "Hi, what is the condition of the macbook"
                 realm.copyToRealmOrUpdate(userMessage1)
 
-                val userMessage2 = Feedback()
+                val userMessage2 = UserMessage()
                 userMessage2.from = nadine
                 userMessage2.to = aldrin
                 userMessage2.text = "It is brand new from Singapore."
