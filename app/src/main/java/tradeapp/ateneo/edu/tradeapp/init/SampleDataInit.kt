@@ -154,7 +154,7 @@ open class SampleDataInit(val context: Context) {
                 val bookmark2 = Bookmark()
                 bookmark2.user = aldrin
                 bookmark2.product = realm.where(Product::class.java).equalTo("title", "iPhone X").findFirst()
-                realm.copyToRealmOrUpdate(bookmark1)
+                realm.copyToRealmOrUpdate(bookmark2)
             }
         }
     }

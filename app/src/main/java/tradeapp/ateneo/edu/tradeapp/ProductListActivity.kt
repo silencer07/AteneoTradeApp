@@ -3,12 +3,14 @@ package tradeapp.ateneo.edu.tradeapp
 import io.realm.OrderedRealmCollection
 import io.realm.Realm
 import io.realm.Sort
+import org.androidannotations.annotations.Bean
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.Extra
 import org.androidannotations.annotations.UiThread
 import tradeapp.ateneo.edu.tradeapp.adapters.ProductListAdapter
 import tradeapp.ateneo.edu.tradeapp.filter.ProductFilter
 import tradeapp.ateneo.edu.tradeapp.model.Product
+import tradeapp.ateneo.edu.tradeapp.service.UserService
 import java.util.*
 
 
@@ -37,7 +39,7 @@ open class ProductListActivity : AbstractMainActivity() {
         }
 
 
-        listView.adapter = ProductListAdapter(this.applicationContext, products)
+        listView.adapter = ProductListAdapter(userService.getLoggedInUser(), this.applicationContext, products)
     }
 
 
