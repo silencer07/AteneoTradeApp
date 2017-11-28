@@ -89,6 +89,25 @@ class ProductListAdapter(val loggedInUser: User?, val context: Context, products
                 drawable = drawable.color(ContextCompat.getColor(context, colorId))
 
                 viewHolder.bookmarkButton!!.background = drawable
+                viewHolder.bookmarkButton!!.setOnClickListener { v ->
+                    Realm.getDefaultInstance().executeTransaction { realm ->
+                        var bookmark = Realm.getDefaultInstance().where(Bookmark::class.java)
+                            .equalTo("product.uuid", product.uuid)
+                            .equalTo("user.username", loggedInUser.username)
+                            .findFirst()
+                        if(bookmark != null){
+                            bookmark.deleteFromRealm()
+                            val drawable = viewHolder.bookmarkButton!!.background as IconicsDrawable
+                            drawable.color(ContextCompat.getColor(context, R.color.colorLight))
+                        } else {
+                            bookmark = Bookmark()
+                            bookmark.user = loggedInUser
+                            bookmark.product = product
+                            realm.copyToRealmOrUpdate(bookmark)
+                            drawable.color(ContextCompat.getColor(context, R.color.colorAccent))
+                        }
+                    }
+                }
             } else {
                 viewHolder.bookmarkButton!!.visibility = View.GONE
             }
