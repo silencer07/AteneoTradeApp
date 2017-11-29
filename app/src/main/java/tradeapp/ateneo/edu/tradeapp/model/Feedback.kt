@@ -13,7 +13,7 @@ import java.util.*
 open class Feedback(): RealmObject() {
 
     companion object {
-        val MAX_RATING = 5
+        val MAX_RATING = 5f
     }
 
     @PrimaryKey

@@ -168,14 +168,14 @@ open class SampleDataInit(val context: Context) {
                 feedback1.from = aldrin
                 feedback1.to = nadine
                 feedback1.text = "Amazing seller."
-                feedback1.rating = 5
+                feedback1.rating = 5f
                 realm.copyToRealmOrUpdate(feedback1)
 
                 val feedback2 = Feedback()
                 feedback2.from = nadine
                 feedback2.to = aldrin
                 feedback2.text = "Amazing buyer."
-                feedback2.rating = 4
+                feedback2.rating = 4f
                 realm.copyToRealmOrUpdate(feedback2)
             }
         }

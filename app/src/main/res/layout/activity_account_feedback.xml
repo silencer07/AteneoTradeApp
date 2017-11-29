@@ -11,7 +11,7 @@
 
     <agency.tango.android.avatarview.views.AvatarView
         android:id="@+id/userAvatar"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_columnSpan="2"
         android:layout_gravity="center"
@@ -50,13 +50,29 @@
         android:textStyle="bold"
         app:layout_gravity="fill_horizontal" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:stepSize="0.5"
-        android:isIndicator="true"/>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_columnWeight="8">
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-32dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:scaleX="0.75"
+            android:scaleY="0.75" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/feedbackList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:columnCount="2" />
 
 </GridLayout>
 
