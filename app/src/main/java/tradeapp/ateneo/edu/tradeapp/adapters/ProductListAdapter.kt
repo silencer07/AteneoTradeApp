@@ -34,7 +34,7 @@ import java.util.concurrent.Executors
  * Created by aldrin on 11/20/17.
  */
 
-class ProductListAdapter(val loggedInUser: User?, val context: Context, products: OrderedRealmCollection<Product>): RealmBaseAdapter<Product>(products)
+class ProductListAdapter(val loggedInUser: User?, val context: Context, products: OrderedRealmCollection<Product>?): RealmBaseAdapter<Product>(products)
         , ListAdapter {
 
     private class ViewHolder {

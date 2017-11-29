@@ -30,7 +30,7 @@ open class ProductListActivity : AbstractMainActivity() {
     protected open fun updateView(){
         val user = userService.getLoggedInUser()
         val realm = Realm.getDefaultInstance()
-        var products: OrderedRealmCollection<Product>
+        var products: OrderedRealmCollection<Product>? = null
         when(filter.type){
             "category" ->  {
                 products = realm.where(Product::class.java)
@@ -55,7 +55,9 @@ open class ProductListActivity : AbstractMainActivity() {
                         .equalTo("user.username", userService.getLoggedInUser()!!.username)
                         .findAllSorted("dateCreated", Sort.DESCENDING)
                         .map { b -> b.product }
-                products = realm.where(Product::class.java).`in`("uuid", unmanagedProducts.map { p -> p!!.uuid }.toTypedArray()).findAll()
+                if(unmanagedProducts.isNotEmpty()) {
+                    products = realm.where(Product::class.java).`in`("uuid", unmanagedProducts.map { p -> p!!.uuid }.toTypedArray()).findAll()
+                }
             }
             else -> throw UnsupportedOperationException("${filter.type} not yet supported")
         }
