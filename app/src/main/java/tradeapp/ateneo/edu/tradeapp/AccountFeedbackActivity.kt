@@ -15,7 +15,7 @@ import org.androidannotations.annotations.Extra
 import tradeapp.ateneo.edu.tradeapp.model.User
 
 
-@EActivity(R.layout.activity_account_details)
+@EActivity(R.layout.activity_account_feedback)
 open class AccountFeedbackActivity : ActivityWithIconicsContext() {
 
     @Extra
