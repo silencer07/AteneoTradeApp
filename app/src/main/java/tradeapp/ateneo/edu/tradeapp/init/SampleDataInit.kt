@@ -163,7 +163,7 @@ open class SampleDataInit(val context: Context) {
         val nadine = this.nadine
         val aldrin = this.aldrin
         Realm.getDefaultInstance().executeTransaction { realm ->
-            if (realm.where(Bookmark::class.java).count() == 0L) {
+            if (realm.where(Feedback::class.java).count() == 0L) {
                 val feedback1 = Feedback()
                 feedback1.from = aldrin
                 feedback1.to = nadine

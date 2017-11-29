@@ -12,6 +12,7 @@ import tradeapp.ateneo.edu.tradeapp.service.UserService
 import java.io.ByteArrayInputStream
 import kotlinx.android.synthetic.main.activity_account_feedback.*
 import org.androidannotations.annotations.Extra
+import tradeapp.ateneo.edu.tradeapp.model.Feedback
 import tradeapp.ateneo.edu.tradeapp.model.User
 
 
@@ -38,6 +39,14 @@ open class AccountFeedbackActivity : ActivityWithIconicsContext() {
         }
 
         userAvatar!!.setImageDrawable(image)
+
+        val feedbacks = Realm.getDefaultInstance()
+            .where(Feedback::class.java)
+            .equalTo("to.username", username)
+            .findAll()
+        val rating = feedbacks.map { f -> f.rating }.average()
+
+        ratingBar.rating = if(!rating.isNaN()) rating.toFloat() else 3f
     }
 
 }
