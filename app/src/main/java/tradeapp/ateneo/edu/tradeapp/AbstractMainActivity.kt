@@ -10,6 +10,8 @@ import android.widget.Toast
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.mikepenz.iconics.IconicsDrawable
 import org.androidannotations.annotations.*
+import org.apache.commons.lang3.StringUtils
+import tradeapp.ateneo.edu.tradeapp.filter.ProductFilter
 import tradeapp.ateneo.edu.tradeapp.model.ActivityWithIconicsContext
 import tradeapp.ateneo.edu.tradeapp.service.UserService
 
@@ -90,8 +92,29 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
         super.getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
     }
 
-    @OptionsItem(R.id.action_favorite)
-    fun actionFavoriteClicked(){
-        Toast.makeText(this@AbstractMainActivity, "Action clicked", Toast.LENGTH_LONG).show()
+    @OptionsItem(R.id.action_bookmarks)
+    fun actionBookmarksClicked(){
+        showProductListActivity("bookmark")
+    }
+
+    @OptionsItem(R.id.action_bought)
+    fun actionBoughtClicked(){
+        showProductListActivity("bought")
+    }
+
+    @OptionsItem(R.id.action_sold)
+    fun actionSoldClicked(){
+        showProductListActivity("sold")
+    }
+
+    private fun showProductListActivity(type: String){
+        if(userService.getLoggedInUser() != null) {
+            val filter = ProductFilter(type = type, keyword = StringUtils.EMPTY)
+            val i = Intent(baseContext, ProductListActivity_::class.java)
+            i.putExtra("filter", filter)
+            baseContext.startActivity(i)
+        } else {
+            baseContext.startActivity(Intent(this, LoginActivity_::class.java))
+        }
     }
 }

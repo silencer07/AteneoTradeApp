@@ -19,4 +19,6 @@ open class Bookmark(): RealmObject() {
 
     var product: Product? = null
 
+    var dateCreated = Date()
+
 }
