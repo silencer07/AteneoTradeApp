@@ -2,6 +2,7 @@ package tradeapp.ateneo.edu.tradeapp.adapters
 
 import agency.tango.android.avatarview.views.AvatarView
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.mikepenz.iconics.IconicsDrawable
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
 import org.apache.commons.lang3.StringUtils
+import tradeapp.ateneo.edu.tradeapp.AccountFeedbackActivity_
 import tradeapp.ateneo.edu.tradeapp.R
 import tradeapp.ateneo.edu.tradeapp.model.ProductComment
 import java.io.ByteArrayInputStream
@@ -48,6 +50,12 @@ class CommentCardAdapter(val context: Context, comments: OrderedRealmCollection<
         viewHolder.avatar!!.setImageDrawable(image)
         viewHolder.commentName!!.text = comment.user!!.getDisplayName()
         viewHolder.text!!.text = StringUtils.capitalize(comment.text)
+
+        viewHolder.avatar!!.setOnClickListener {
+            val i = Intent(context, AccountFeedbackActivity_::class.java)
+            i.putExtra("username", comment.user!!.username)
+            context.startActivity(i)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

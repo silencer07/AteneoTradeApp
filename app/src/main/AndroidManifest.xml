@@ -32,6 +32,7 @@
         <activity android:name=".AccountDetailsActivity_" />
         <activity android:name=".AddProductActivity_" />
         <activity android:name=".MessageActivity_"></activity>
+        <activity android:name=".AccountFeedbackActivity_"></activity>
     </application>
 
 </manifest>
