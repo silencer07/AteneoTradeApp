@@ -29,6 +29,8 @@ open class Product : RealmObject() {
 
     var sold: Boolean = false
 
+    var soldDate: Date? = null
+
     var reservedTo: User? = null
 
     var photos: RealmList<ByteArray> = RealmList<ByteArray>();

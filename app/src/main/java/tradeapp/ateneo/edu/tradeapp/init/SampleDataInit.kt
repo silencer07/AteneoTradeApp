@@ -4,6 +4,7 @@ import android.content.Context
 import io.realm.Realm
 import org.apache.commons.io.IOUtils
 import tradeapp.ateneo.edu.tradeapp.model.*
+import java.util.*
 
 /**
  * Created by aldrin on 11/20/17.
@@ -131,6 +132,7 @@ open class SampleDataInit(val context: Context) {
                 macbook.price = 150_000f
                 macbook.reservedTo = aldrin
                 macbook.sold = true
+                macbook.soldDate = Date()
                 realm.copyToRealmOrUpdate(macbook)
 
                 val productComment5 = ProductComment()

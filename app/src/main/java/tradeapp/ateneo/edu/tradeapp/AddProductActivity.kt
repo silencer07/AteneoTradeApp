@@ -30,6 +30,7 @@ import java.text.DecimalFormat
 import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import tradeapp.ateneo.edu.tradeapp.model.User
+import java.util.*
 import java.util.logging.Handler
 
 
@@ -89,6 +90,7 @@ open class AddProductActivity : AppCompatActivity() {
         val p = getProduct()
         Realm.getDefaultInstance().executeTransaction { realm ->
             p!!.sold = true
+            p.soldDate = Date()
             realm.copyToRealmOrUpdate(p)
         }
         Toast.makeText(this, "Product successfully sold to " + p!!.reservedTo!!.getDisplayName(), Toast.LENGTH_SHORT).show()
