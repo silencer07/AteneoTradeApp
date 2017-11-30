@@ -80,7 +80,7 @@ open class AccountDetailsActivity : AppCompatActivity() {
     @Click(R.id.logoutButton)
     open fun logout(){
         userService.logoutUser()
-        finish()
+        startActivity(Intent(this, MainActivity_::class.java))
     }
 
     @Click(R.id.userAvatar)
