@@ -6,7 +6,6 @@ import android.view.View
 import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.mikepenz.iconics.IconicsDrawable
 import io.realm.Realm
-import io.realm.Sort
 import kotlinx.android.synthetic.main.activity_account_feedback.*
 import org.androidannotations.annotations.*
 import tradeapp.ateneo.edu.tradeapp.adapters.FeedbackCardAdapter
@@ -109,6 +108,20 @@ open class AccountFeedbackActivity : ActivityWithIconicsContext() {
         val params = mainLayout.layoutParams as PercentRelativeLayout.LayoutParams
         val info = params.percentLayoutInfo
         info.heightPercent = 0.85f
+    }
+
+    @Click(R.id.addFeedbackButton)
+    open fun addFeedback(){
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            val feedback = Feedback()
+            feedback.from = userService.getLoggedInUser()
+            feedback.to = realm.where(User::class.java).equalTo("username", username).findFirst()
+            feedback.text = addFeedbackText.text.toString()
+            feedback.rating = addFeedbackRatingBar.rating
+            realm.copyToRealm(feedback)
+        }
+        setupView()
+        hideFeedbackContainerIfNecessary()
     }
 
 }
