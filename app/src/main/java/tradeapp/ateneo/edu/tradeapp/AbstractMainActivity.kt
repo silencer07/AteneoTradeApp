@@ -14,6 +14,9 @@ import org.apache.commons.lang3.StringUtils
 import tradeapp.ateneo.edu.tradeapp.filter.ProductFilter
 import tradeapp.ateneo.edu.tradeapp.model.ActivityWithIconicsContext
 import tradeapp.ateneo.edu.tradeapp.service.UserService
+import android.content.res.TypedArray
+
+
 
 @EActivity(R.layout.activity_main)
 abstract class AbstractMainActivity : ActivityWithIconicsContext() {
@@ -83,7 +86,20 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
                 drawable.icon(FontAwesome.Icon.faw_heart).actionBar()
                         .color(ContextCompat.getColor(this, R.color.colorAccent))
         )
+
+        val actionMessages= menu.findItem(R.id.action_messages)
+        val drawable2 = IconicsDrawable(this);
+        val array = theme.obtainStyledAttributes(intArrayOf(android.R.attr.colorBackground))
+        actionMessages.setIcon(
+                drawable2.icon(FontAwesome.Icon.faw_comment).actionBar()
+                        .color(array.getColor(0, 0xFFFFFF))
+        )
         return true
+    }
+
+    @OptionsItem(R.id.action_messages)
+    open fun showMessageOverview(){
+        startActivity( Intent(this, MessageListActivity_::class.java))
     }
 
     @AfterViews

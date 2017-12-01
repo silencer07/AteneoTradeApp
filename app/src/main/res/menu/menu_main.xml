@@ -6,20 +6,19 @@
 
     <item
         android:id="@+id/action_favorite"
-        android:orderInCategory="300"
         android:title="Favorites"
         app:showAsAction="always">
         <menu>
             <item android:id="@+id/action_bookmarks"
-                android:orderInCategory="300"
                 android:title="Bookmarks"/>
             <item android:id="@+id/action_bought"
-                android:orderInCategory="300"
                 android:title="Bought"/>
             <item android:id="@+id/action_sold"
-                android:orderInCategory="300"
                 android:title="Sold"/>
         </menu>
     </item>
-
+    <item
+        android:id="@+id/action_messages"
+        android:title="Messages"
+        app:showAsAction="always"/>
 </menu>

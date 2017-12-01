@@ -22,7 +22,7 @@ import java.io.ByteArrayInputStream
  * Created by aldrin on 11/20/17.
  */
 
-class MessageListAdapter(val context: Context, userMessages: OrderedRealmCollection<UserMessage>):
+open class MessageListAdapter(val context: Context, userMessages: OrderedRealmCollection<UserMessage>):
         RealmRecyclerViewAdapter<UserMessage, MessageListAdapter.ViewHolder>(userMessages, true) {
 
     class ViewHolder(val view: View): RecyclerView.ViewHolder(view) {

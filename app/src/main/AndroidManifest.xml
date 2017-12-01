@@ -31,9 +31,10 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".AccountDetailsActivity_" />
         <activity android:name=".AddProductActivity_" />
-        <activity android:name=".MessageActivity_"></activity>
+        <activity android:name=".MessageActivity_"/>
         <activity android:name=".AccountFeedbackActivity_"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".MessageListActivity_"/>
     </application>
 
 </manifest>
