@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.opengl.Visibility
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.content.ContextCompat
@@ -128,6 +129,10 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
                 .findAllSorted("dateCreated")
         commentList.adapter = CommentCardAdapter(baseContext, comments)
         commentList.isScrollContainer = false
+
+        if(comments.isEmpty()){
+            commentsLabel.visibility = View.GONE
+        }
     }
 
     private fun getProduct(): Product?{
@@ -158,6 +163,8 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
 
             Toast.makeText(this,"comment added successfully", Toast.LENGTH_SHORT).show()
             addCommentText.text.clear()
+
+            commentsLabel.visibility = View.VISIBLE
         }
     }
 

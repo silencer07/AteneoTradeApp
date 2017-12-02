@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    style="@style/MainLayoutGridViewItem">
+    style="@style/ContainerGeneralStyle">
 
     <RelativeLayout
         android:layout_width="match_parent"

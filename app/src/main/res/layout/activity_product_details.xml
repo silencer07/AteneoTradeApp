@@ -3,14 +3,15 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    android:padding="5dp">
     <android.support.v4.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginBottom="60dp"
-        android:id="@+id/scrollView"
-        >
+        android:id="@+id/scrollView">
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
@@ -60,90 +61,58 @@
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:text="Posted by:"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_gravity="fill_horizontal" />
+                    android:layout_columnWeight="1"
+                    style="@style/GridCellStyle" />
 
                 <TextView
                     android:id="@+id/postedByText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_columnWeight="8"
                     android:text="sampleUser"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    app:layout_gravity="fill_horizontal" />
+                    style="GridCellValueStyle" />
 
                 <TextView
                     android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:text="Date posted:"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_gravity="fill_horizontal" />
+                    android:layout_columnWeight="1"
+                    style="@style/GridCellStyle" />
 
                 <TextView
                     android:id="@+id/createdDateText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_columnWeight="8"
                     android:text="11/11/2011"
-                    android:textSize="16sp"
-                    app:layout_gravity="fill_horizontal" />
+                    style="GridCellValueStyle"  />
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:text="Price:"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_gravity="fill_horizontal" />
+                    android:layout_columnWeight="1"
+                    style="@style/GridCellStyle"  />
 
                 <TextView
                     android:id="@+id/priceText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_columnWeight="8"
                     android:text="10.00"
-                    android:textSize="16sp"
-                    app:layout_gravity="fill_horizontal" />
+                    style="GridCellValueStyle" />
 
                 <TextView
                     android:id="@+id/reservedToLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:text="Reserved To:"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_gravity="fill_horizontal" />
+                    android:layout_columnWeight="1"
+                    style="@style/GridCellStyle"  />
 
                 <TextView
                     android:id="@+id/reservedToText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_columnWeight="8"
                     android:text="sampleUser2"
-                    android:textSize="16sp"
-                    app:layout_gravity="fill_horizontal" />
+                    style="GridCellValueStyle"  />
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
                     android:text="Description:"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_gravity="fill_horizontal" />
+                    android:layout_columnWeight="1"
+                    style="@style/GridCellStyle" />
 
                 <TextView
                     android:id="@+id/descriptionText"
@@ -157,31 +126,37 @@
                     android:textSize="16sp" />
             </GridLayout>
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/commentsLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Comments"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="ContainerGeneralStyleSlim"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/commentList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="ContainerGeneralStyleSlim"/>
+
             <TextView
                 android:id="@+id/addCommentLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Comment:"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="ContainerGeneralStyleSlim"/>
 
             <EditText
                 android:id="@+id/addCommentText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textMultiLine"/>
+                android:inputType="textMultiLine"
+                android:padding="5dp"
+                style="ContainerGeneralStyleSlim"/>
 
             <Button
                 android:layout_width="wrap_content"
