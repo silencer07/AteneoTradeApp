@@ -11,18 +11,28 @@
         android:orientation="vertical"
         tools:context="tradeapp.ateneo.edu.tradeapp.AddProductActivity">
 
-        <com.synnapps.carouselview.CarouselView
-            android:id="@+id/addProductCarouselView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@android:drawable/ic_menu_report_image"
-            app:fillColor="#FFFFFFFF"
-            app:pageColor="#00000000"
-            app:radius="6dp"
-            app:slideInterval="3000"
-            app:strokeColor="#FF777777"
-            app:strokeWidth="1dp" />
-
+            android:layout_height="wrap_content">
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/addProductCarouselView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@android:drawable/ic_menu_report_image"
+                app:fillColor="#FFFFFFFF"
+                app:pageColor="#00000000"
+                app:radius="6dp"
+                app:slideInterval="3000"
+                app:strokeColor="#FF777777"
+                app:strokeWidth="1dp" />
+            <ImageButton
+                android:id="@+id/editProductImageButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="15dp"/>
+        </RelativeLayout>
         <Spinner
             android:id="@+id/addProductCategorySpinner"
             android:layout_width="match_parent"

@@ -28,7 +28,10 @@ import java.io.ByteArrayOutputStream
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import android.content.DialogInterface
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
+import com.mikepenz.fontawesome_typeface_library.FontAwesome
+import com.mikepenz.iconics.IconicsDrawable
 import tradeapp.ateneo.edu.tradeapp.model.User
 import java.util.*
 import java.util.logging.Handler
@@ -85,6 +88,20 @@ open class AddProductActivity : AppCompatActivity() {
         }
     }
 
+    @AfterViews
+    open fun setupEditImageButton(){
+        if(imageByteArraysToBeShown.isNotEmpty()){
+            var drawable = IconicsDrawable(this)
+            drawable = drawable.icon(FontAwesome.Icon.faw_pencil).actionBar()
+            drawable = drawable.color(ContextCompat.getColor(this, R.color.colorAccent))
+            editProductImageButton.setImageDrawable(drawable)
+            editProductImageButton.setBackgroundResource(0)
+            editProductImageButton.visibility = View.VISIBLE
+        } else {
+            editProductImageButton.visibility = View.GONE
+        }
+    }
+
     @Click(R.id.addProductMarkAsSold)
     fun markAsSold(){
         val p = getProduct()
@@ -135,7 +152,7 @@ open class AddProductActivity : AppCompatActivity() {
         builder.show()
     }
 
-    @Click(R.id.addProductCarouselView)
+    @Click(R.id.addProductCarouselView, R.id.editProductImageButton)
     open fun addImageToCarousel(){
         val intent = Intent()
         intent.type = "image/*"
@@ -148,6 +165,7 @@ open class AddProductActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, intent)
 
         if (requestCode == AccountDetailsActivity.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && intent != null) {
+            imageByteArraysToBeShown.clear()
             if(intent.data != null){
                 val uri = intent.data
                 addToImageByteArraysToBeShown(uri)
@@ -160,6 +178,7 @@ open class AddProductActivity : AppCompatActivity() {
             }
 
             showImagesToCarousel()
+            setupEditImageButton()
         }
     }
 
