@@ -1,6 +1,8 @@
 package tradeapp.ateneo.edu.tradeapp
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.support.design.widget.BottomNavigationView
@@ -163,7 +165,12 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
     fun setupBottomNavigation(){
         if(getProduct()!!.user?.equals(userService.getLoggedInUser())!!){
             navigation.menu.getItem(0).setIcon(IconicsDrawable(this).icon(FontAwesome.Icon.faw_pencil).actionBar())
-            navigation.menu.getItem(1).setIcon(IconicsDrawable(this).icon(FontAwesome.Icon.faw_trash).actionBar())
+
+            if(getProduct()!!.sold) {
+                navigation.menu.removeItem(R.id.navigation_product_details_delete)
+            } else {
+                navigation.menu.getItem(1).setIcon(IconicsDrawable(this).icon(FontAwesome.Icon.faw_trash).actionBar())
+            }
 
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         } else {
@@ -183,7 +190,20 @@ open class ProductDetailsActivity : ActivityWithIconicsContext() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_product_details_delete -> {
-                println("TODO")
+                val dialogClickListener = DialogInterface.OnClickListener() { dialog: DialogInterface, which: Int ->
+                    when (which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            Realm.getDefaultInstance().executeTransaction { realm ->
+                                getProduct()!!.deleteFromRealm()
+                                finish()
+                            }
+                        }
+                    }
+                };
+
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show()
                 return@OnNavigationItemSelectedListener true
             }
         }
