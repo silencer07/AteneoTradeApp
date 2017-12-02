@@ -105,7 +105,6 @@ abstract class AbstractMainActivity : ActivityWithIconicsContext() {
     @AfterViews
     fun setToolbar(){
         setSupportActionBar(toolbar);
-        super.getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
     }
 
     @OptionsItem(R.id.action_bookmarks)
