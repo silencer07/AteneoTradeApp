@@ -8,7 +8,8 @@
 
 <android.support.percent.PercentRelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    style="@style/ContainerGeneralStyleSlim">
     <agency.tango.android.avatarview.views.AvatarView
         android:id="@+id/userAvatar"
         android:layout_width="match_parent"
